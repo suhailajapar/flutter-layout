@@ -44,9 +44,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.pinkAccent,
         centerTitle: true,
         title: const Text(
-          'Last Seen: Who & when',
+          'The last time I saw you',
         ),
       ),
       body: FutureBuilder(
@@ -57,19 +58,90 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (context, id) {
                         return Card(
                           margin: const EdgeInsets.all(10),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                child: Image.network("${_persons[id]["avatar"]}")
-                              ),
-                              Container(
-                                child: Text(_persons[id]["first_name"])
-                              ),
-                              Container(
-                                child: Text(_persons[id]["last_name"])
-                              ),
-                            ],
-                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Row(
+                              children: <Widget>[
+
+                                // For Avatar
+                                Container(
+                                  margin: EdgeInsets.only(right: 20),
+                                  child: Center(
+                                    child: _persons[id]['avatar'] != null ? 
+                                      Image.network("${_persons[id]["avatar"]}") 
+                                      : Icon(
+                                          Icons.account_circle, 
+                                          color: Colors.pink, 
+                                          size: 50
+                                        )
+                                  )
+                                ),
+
+                                // For user details
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(
+                                          _persons[id]["first_name"] + " " + _persons[id]["last_name"],
+                                          style: TextStyle(fontSize: 16),
+                                        )
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                        child: Text(
+                                          _persons[id]["username"],
+                                          style: TextStyle(fontSize: 14),
+                                        )
+                                      ),
+                                      Container(
+                                        child: _persons[id]['status'] != null ? 
+                                          Text('"${_persons[id]["status"]}"') 
+                                          : Text(
+                                              'No Status', 
+                                              style: TextStyle(color: Colors.grey),
+                                            )
+                                      )
+                                    ],
+                                  ),
+                                ),
+
+                                // For last seen & messages
+                                Container(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        margin: const EdgeInsets.only(bottom: 8),
+                                        child: Text(
+                                          _persons[id]["last_seen_time"],
+                                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                                        )
+                                      ),
+                                      Container(
+                                        child: _persons[id]['messages'] != null ? 
+                                          CircleAvatar(
+                                            radius: 12,
+                                            backgroundColor: Colors.pinkAccent,
+                                            child: Text(
+                                                _persons[id]["messages"].toString(),
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12,
+                                                ),
+                                              )
+                                            ) 
+                                          : Container(
+                                              width: 24,
+                                              height: 24,
+                                            )
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
                         );
                       },
                     );
