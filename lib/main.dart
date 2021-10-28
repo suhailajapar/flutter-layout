@@ -56,7 +56,14 @@ class _HomePageState extends State<HomePage> {
           return ListView.builder(
                       itemCount: _persons.length,
                       itemBuilder: (context, id) {
-                        return Card(
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border(
+                              top: BorderSide(width: 1.2, color: Colors.pink.shade700),
+                              bottom: BorderSide(width: 1.2, color: Colors.pink.shade700),
+                            ),
+                          ),
                           margin: const EdgeInsets.all(10),
                           child: Padding(
                             padding: EdgeInsets.all(10),
@@ -112,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     children: <Widget>[
                                       Container(
-                                        margin: const EdgeInsets.only(bottom: 8),
+                                        margin: const EdgeInsets.only(bottom: 10),
                                         child: Text(
                                           _persons[id]["last_seen_time"],
                                           style: TextStyle(fontSize: 12, color: Colors.grey),
